@@ -3,7 +3,7 @@ from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
 from hotel.db import engine
-from hotel.routers import customers, rooms
+from hotel.routers import bookings, customers, rooms
 
 # Use absolute path for database
 DB_FILE_PATH = f"sqlite:///{Path(__file__).parent / 'hotel_snap.db'}"
@@ -26,3 +26,4 @@ def read_root():
 # Include routers
 app.include_router(rooms.router)
 app.include_router(customers.router)
+app.include_router(bookings.router)  
