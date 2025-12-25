@@ -1,7 +1,6 @@
 from typing import Optional
 from pydantic import BaseModel
-from hotel.db import engine
-from hotel.db.models import DBCustomer, to_dict
+from hotel.operations.interface import DataInterface, DataObject
 
 
 class CustomerCreateData(BaseModel):
@@ -16,30 +15,23 @@ class CustomerUpdateData(BaseModel):
     email_address: Optional[str] = None
 
 
-def read_all_customers():
-    session = engine.DBSession()
-    customers = session.query(DBCustomer).all()
-    return [to_dict(customer) for customer in customers]
+def read_all_customers(customer_interface: DataInterface) -> list[DataObject]:
+    return customer_interface.read_all()
 
 
-def read_customer_by_id(customer_id: int):
-    session = engine.DBSession()
-    customer = session.query(DBCustomer).get(customer_id)
-    return to_dict(customer)
+def read_customer_by_id(
+    customer_id: int, customer_interface: DataInterface
+) -> DataObject:
+    return customer_interface.read_by_id(customer_id)
 
 
-def create_customer(data: CustomerCreateData):
-    session = engine.DBSession()
-    customer = DBCustomer(**data.model_dump())
-    session.add(customer)
-    session.commit()
-    return to_dict(customer)
+def create_customer(
+    data: CustomerCreateData, customer_interface: DataInterface
+) -> DataObject:
+    return customer_interface.create(data.model_dump())
 
 
-def update_customer(customer_id: int, data: CustomerUpdateData):
-    session = engine.DBSession()
-    customer = session.query(DBCustomer).get(customer_id)
-    for key, value in data.model_dump(exclude_unset=True).items():
-        setattr(customer, key, value)
-    session.commit()
-    return to_dict(customer)
+def update_customer(
+    customer_id: int, data: CustomerUpdateData, customer_interface: DataInterface
+) -> DataObject:
+    return customer_interface.update(customer_id, data.model_dump())

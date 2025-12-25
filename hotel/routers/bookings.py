@@ -28,9 +28,11 @@ def api_read_booking_by_id(booking_id: int):
 
 @router.post("/booking")
 def api_create_booking(booking: BookingCreateData):
-    bookingInterface = DBInterface(DBBooking) # Create booking interface
-    roomInterface = DBInterface(DBRoom)   # Create room interface
-    return create_booking(booking, bookingInterface, roomInterface) # Inject both interfaces
+    bookingInterface = DBInterface(DBBooking)  # Create booking interface
+    roomInterface = DBInterface(DBRoom)  # Create room interface
+    return create_booking(
+        booking, bookingInterface, roomInterface
+    )  # Inject both interfaces
 
 
 @router.delete("/booking/{booking_id}")
