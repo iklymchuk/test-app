@@ -26,4 +26,4 @@ def read_root():
 # Include routers
 app.include_router(rooms.router)
 app.include_router(customers.router)
-app.include_router(bookings.router)  
+app.include_router(bookings.router)
