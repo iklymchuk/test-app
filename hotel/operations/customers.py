@@ -39,8 +39,6 @@ def create_customer(data: CustomerCreateData):
 def update_customer(customer_id: int, data: CustomerUpdateData):
     session = engine.DBSession()
     customer = session.query(DBCustomer).get(customer_id)
-    if not customer:
-        return None
     for key, value in data.model_dump(exclude_unset=True).items():
         setattr(customer, key, value)
     session.commit()
