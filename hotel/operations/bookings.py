@@ -24,18 +24,22 @@ def read_booking_by_id(booking_id: int, booking_interface: DataInterface) -> Dat
 
 def create_booking(
     data: BookingCreateData,
-    booking_interface: DataInterface,   # Injected dependency
+    booking_interface: DataInterface,  # Injected dependency
     room_interface: DataInterface,  # Injected dependency
 ) -> DataObject:
 
-    room = room_interface.read_by_id(data.room_id)  # Use room_interface to get room details
+    room = room_interface.read_by_id(
+        data.room_id
+    )  # Use room_interface to get room details
 
     days = (data.to_date - data.from_date).days
     if days <= 0:
         raise InvalidDateError("Invalid booking dates")
     booking_dict = data.model_dump()
     booking_dict["price"] = room["price"] * days
-    return booking_interface.create(booking_dict)   # Use booking_interface to create booking
+    return booking_interface.create(
+        booking_dict
+    )  # Use booking_interface to create booking
 
 
 def delete_booking(booking_id: int, booking_interface: DataInterface) -> DataObject:

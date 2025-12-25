@@ -9,7 +9,7 @@ DataObject = dict[str, Any]
 
 class DBInterface:
     def __init__(self, db_class: type[Base]):
-        self.db_class = db_class    # Store which model to work with
+        self.db_class = db_class  # Store which model to work with
 
     def read_by_id(self, id: int) -> DataObject:
         session = engine.DBSession()
