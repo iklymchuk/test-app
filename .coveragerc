@@ -1,0 +1,43 @@
+[run]
+source = hotel
+omit =
+    # Exclude all test files and directories
+    */tests/*
+    */test_*.py
+    *_test.py
+    # Exclude stubs and test helpers
+    */stubs/*
+    */fixtures/*
+    # Exclude virtual environment
+    */venv/*
+    */.venv/*
+    */virtualenv/*
+    # Exclude site-packages
+    */site-packages/*
+    # Exclude cache directories
+    */__pycache__/*
+    */.pytest_cache/*
+
+[report]
+# Show lines that weren't covered
+show_missing = True
+# Skip files with 100% coverage (optional - set to True to hide them)
+skip_covered = False
+# Precision for coverage percentage
+precision = 0
+
+# Fail if total coverage is below this percentage (optional)
+# Uncomment to enforce minimum coverage
+# fail_under = 80
+
+# Sort report by different criteria
+# Options: Name, Stmts, Miss, Cover, Missing
+sort = Cover
+
+[html]
+# Directory for HTML coverage report
+directory = htmlcov
+
+[xml]
+# File for XML coverage report (useful for CI/CD)
+output = coverage.xml
