@@ -8,19 +8,34 @@ export PYTHONPATH := $(PWD):$(PYTHONPATH)
 
 help:
 	@echo "Available targets:"
+	@echo ""
+	@echo "Test Execution:"
 	@echo "  test              - Run all tests"
-	@echo "  test-unit         - Run unit tests only"
-	@echo "  test-integration  - Run integration tests only"
+	@echo "  test-unit         - Run unit tests only (stubs)"
+	@echo "  test-integration  - Run DB integration tests only"
+	@echo "  test-api          - Run API integration tests only"
 	@echo "  test-e2e          - Run end-to-end tests only"
 	@echo "  test-smoke        - Run smoke tests (critical tests)"
+	@echo ""
+	@echo "Domain-Specific:"
 	@echo "  test-booking      - Run booking-related tests"
 	@echo "  test-customer     - Run customer-related tests"
 	@echo "  test-room         - Run room-related tests"
+	@echo ""
+	@echo "Coverage & Reports:"
 	@echo "  test-coverage     - Run tests with coverage report"
+	@echo "  test-and-coverage - Run tests and open HTML coverage"
+	@echo ""
+	@echo "Other:"
 	@echo "  test-verbose      - Run tests with verbose output"
 	@echo "  test-failed       - Re-run only failed tests"
 	@echo "  test-watch        - Run tests in watch mode (requires pytest-watch)"
+	@echo "  test-parallel     - Run tests in parallel (requires pytest-xdist)"
+	@echo "  test-quick        - Quick test (unit + smoke)"
+	@echo ""
+	@echo "Maintenance:"
 	@echo "  clean             - Remove test artifacts and cache"
+	@echo "  install-test-deps - Install test dependencies"
 
 # Run all tests
 test:
@@ -33,6 +48,10 @@ test-unit:
 # Run integration tests
 test-integration:
 	$(PYTEST) -m integration
+
+# Run API integration tests
+test-api:
+	$(PYTEST) -m api
 
 # Run end-to-end tests
 test-e2e:
