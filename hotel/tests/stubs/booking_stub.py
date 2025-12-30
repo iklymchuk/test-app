@@ -3,19 +3,9 @@ from hotel.tests.stubs.stub_interface import DataStubInterface
 
 
 class BookingStub(DataStubInterface):
-
-    def read_by_id(self, id: int) -> DataObject:
-        return {
-            "id": id,
-            "from_date": "2025-12-24",
-            "to_date": "2025-12-26",
-            "price": 200,
-            "customer_id": 1,
-            "room_id": 1,
-        }
-
-    def read_all(self) -> list[DataObject]:
-        return [
+    def __init__(self, bookings: list[DataObject] | None = None) -> None:
+        # Allow tests to override the fixture data while keeping sensible defaults
+        self._bookings = bookings or [
             {
                 "id": 1,
                 "from_date": "2025-12-20",
@@ -33,6 +23,18 @@ class BookingStub(DataStubInterface):
                 "room_id": 2,
             },
         ]
+
+    def read_by_id(self, id: int) -> DataObject:
+        # Return matching booking or the first record with overridden id to keep tests predictable
+        booking = next(
+            (b for b in self._bookings if b["id"] == id), dict(self._bookings[0])
+        )
+        booking["id"] = id
+        return booking
+
+    def read_all(self) -> list[DataObject]:
+        # Return a shallow copy to avoid mutation across tests
+        return [dict(b) for b in self._bookings]
 
     def create(self, data: DataObject) -> DataObject:
         booking = dict(data)

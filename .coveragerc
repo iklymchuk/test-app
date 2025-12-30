@@ -8,6 +8,8 @@ omit =
     # Exclude stubs and test helpers
     */stubs/*
     */fixtures/*
+    # Exclude __init__.py files (no business logic)
+    */__init__.py
     # Exclude virtual environment
     */venv/*
     */.venv/*

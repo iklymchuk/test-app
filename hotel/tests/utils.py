@@ -4,7 +4,7 @@ Common test utilities and helper functions.
 This module contains reusable test helpers that don't fit into fixtures.
 """
 
-from typing import Any, Dict
+from typing import Any
 from datetime import date, timedelta
 
 
@@ -13,7 +13,7 @@ from datetime import date, timedelta
 # ============================================================================
 
 
-def assert_booking_valid(booking: Dict[str, Any]) -> None:
+def assert_booking_valid(booking: dict[str, Any]) -> None:
     """
     Assert that a booking dictionary has all required fields.
 
@@ -31,7 +31,7 @@ def assert_booking_valid(booking: Dict[str, Any]) -> None:
     assert booking["price"] >= 0, "Booking price must be non-negative"
 
 
-def assert_customer_valid(customer: Dict[str, Any]) -> None:
+def assert_customer_valid(customer: dict[str, Any]) -> None:
     """
     Assert that a customer dictionary has all required fields.
 
@@ -48,7 +48,7 @@ def assert_customer_valid(customer: Dict[str, Any]) -> None:
     assert isinstance(customer["id"], int), "Customer ID must be an integer"
 
 
-def assert_room_valid(room: Dict[str, Any]) -> None:
+def assert_room_valid(room: dict[str, Any]) -> None:
     """
     Assert that a room dictionary has all required fields.
 
@@ -79,7 +79,7 @@ def build_booking_dict(
     from_date: date = None,
     to_date: date = None,
     price: int = 100,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Build a booking dictionary with default or custom values.
 
@@ -114,7 +114,7 @@ def build_customer_dict(
     first_name: str = "John",
     last_name: str = "Doe",
     email: str = "john.doe@example.com",
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Build a customer dictionary with default or custom values.
 
@@ -140,7 +140,7 @@ def build_room_dict(
     number: str = "101",
     size: int = 20,
     price: int = 100,
-) -> Dict[str, Any]:
+) -> dict[str, Any]:
     """
     Build a room dictionary with default or custom values.
 
@@ -159,3 +159,57 @@ def build_room_dict(
         "size": size,
         "price": price,
     }
+
+
+# ==========================================================================
+# Canonical Samples (reduce literal duplication in tests)
+# ==========================================================================
+
+
+def booking_sample(overrides: dict[str, Any] | None = None) -> dict[str, Any]:
+    """
+    Provide a canonical booking sample with optional overrides.
+    Keeps literals in one place while staying lightweight.
+    """
+    sample = {
+        "id": 1,
+        "from_date": "2025-12-20",
+        "to_date": "2025-12-22",
+        "price": 200,
+        "customer_id": 1,
+        "room_id": 1,
+    }
+    if overrides:
+        sample.update(overrides)
+    return sample
+
+
+def customer_sample(overrides: dict[str, Any] | None = None) -> dict[str, Any]:
+    """
+    Canonical customer sample aligned with stub defaults.
+    Useful for single-customer expectations in unit tests.
+    """
+    sample = {
+        "id": 1,
+        "name": "Alice",
+        "email": "alice@example.com",
+    }
+    if overrides:
+        sample.update(overrides)
+    return sample
+
+
+def room_sample(overrides: dict[str, Any] | None = None) -> dict[str, Any]:
+    """
+    Canonical room sample aligned with stub defaults.
+    Keeps room literals centralized for unit tests.
+    """
+    sample = {
+        "id": 1,
+        "number": "101",
+        "size": 20,
+        "price": 100,
+    }
+    if overrides:
+        sample.update(overrides)
+    return sample

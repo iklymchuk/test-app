@@ -33,7 +33,7 @@ def api_create_customer(customer: CustomerCreateData):
     return create_customer(customer, customerInterface)
 
 
-@router.post("/customer/{customer_id}")
+@router.patch("/customer/{customer_id}")
 def api_update_customer(customer_id: int, customer: CustomerUpdateData):
     customerInterface = DBInterface(DBCustomer)
     return update_customer(customer_id, customer, customerInterface)
