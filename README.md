@@ -5,7 +5,7 @@
 [![Coverage](https://img.shields.io/badge/Coverage-98%25-brightgreen.svg)]()
 [![Tests](https://img.shields.io/badge/Tests-86%20passing-success.svg)]()
 
-## 🎯 Project Purpose
+## Project Purpose
 
 This project demonstrates how **architectural decisions enable comprehensive test automation**. It showcases:
 
