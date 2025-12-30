@@ -1,5 +1,18 @@
 """
-This file contains shared fixtures and configuration for unit tests.
+Unit Test Fixtures and Configuration
+
+TESTING APPROACH:
+- Provides stub interfaces for isolated unit testing
+- No database or external dependencies
+- Fast, lightweight test data
+
+DESIGN PATTERNS:
+1. Stub Pattern - Fake implementations of interfaces
+2. Fixture Pattern - Reusable test setup
+3. Test Data Builder - Sample data for common scenarios
+
+ARCHITECTURE:
+Stubs replace database layer for isolated business logic testing.
 """
 
 import pytest
@@ -7,13 +20,18 @@ from datetime import date, timedelta
 
 
 # ============================================================================
-# Stub Fixtures - Reusable test doubles
+# Stub Fixtures
 # ============================================================================
 
 
 @pytest.fixture
 def booking_stub():
-    """Provide a BookingStub instance for tests."""
+    """
+    Provide BookingStub instance for testing.
+
+    RETURNS: Stub implementation of booking interface
+    SCOPE: function - new instance per test
+    """
     from hotel.tests.stubs.booking_stub import BookingStub
 
     return BookingStub()
@@ -21,7 +39,12 @@ def booking_stub():
 
 @pytest.fixture
 def room_stub():
-    """Provide a RoomStub instance for tests."""
+    """
+    Provide RoomStub instance for testing.
+
+    RETURNS: Stub implementation of room interface
+    SCOPE: function - new instance per test
+    """
     from hotel.tests.stubs.room_stub import RoomStub
 
     return RoomStub()
@@ -29,20 +52,30 @@ def room_stub():
 
 @pytest.fixture
 def customer_stub():
-    """Provide a CustomerStub instance for tests."""
+    """
+    Provide CustomerStub instance for testing.
+
+    RETURNS: Stub implementation of customer interface
+    SCOPE: function - new instance per test
+    """
     from hotel.tests.stubs.customer_stub import CustomerStub
 
     return CustomerStub()
 
 
 # ============================================================================
-# Data Fixtures - Test data builders
+# Sample Data Fixtures
 # ============================================================================
 
 
 @pytest.fixture
 def sample_booking_data():
-    """Provide sample booking creation data."""
+    """
+    Provide sample booking creation data.
+
+    RETURNS: BookingCreateData with typical values
+    USAGE: For testing booking creation operations
+    """
     from hotel.operations.bookings import BookingCreateData
 
     return BookingCreateData(
@@ -55,7 +88,12 @@ def sample_booking_data():
 
 @pytest.fixture
 def sample_customer_data():
-    """Provide sample customer creation data."""
+    """
+    Provide sample customer creation data.
+
+    RETURNS: CustomerCreateData with typical values
+    USAGE: For testing customer creation operations
+    """
     from hotel.operations.customers import CustomerCreateData
 
     return CustomerCreateData(
@@ -67,7 +105,12 @@ def sample_customer_data():
 
 @pytest.fixture
 def sample_customer_update_data():
-    """Provide sample customer update data."""
+    """
+    Provide sample customer update data.
+
+    RETURNS: CustomerUpdateData with partial update values
+    USAGE: For testing customer update operations
+    """
     from hotel.operations.customers import CustomerUpdateData
 
     return CustomerUpdateData(
