@@ -18,12 +18,6 @@ async def lifespan(app: FastAPI):
 
 app = FastAPI(lifespan=lifespan)
 
-
-@app.get("/")
-def read_root():
-    return {"Hello": "World"}
-
-
 # Include routers
 app.include_router(rooms.router)
 app.include_router(customers.router)
