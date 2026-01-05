@@ -12,3 +12,4 @@ coverage==7.13.0
 pytest-cov==7.0.0
 # HTTP client for API testing
 httpx==0.28.1
+fastapi-mcp==0.4.0
