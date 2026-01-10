@@ -40,4 +40,5 @@ mcp = FastApiMCP(
         "delete_booking",
     ],
 )
-mcp.mount_http()
+# mcp.mount_http()
+mcp.mount_sse()
